@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Zustand middleware to log state and actions on Sentry",
   "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
     "test": "jest"
