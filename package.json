@@ -2,6 +2,10 @@
   "name": "sentry-zustand-middleware",
   "version": "1.0.0",
   "description": "Zustand middleware to log state and actions on Sentry",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Thanaen/sentry-zustand-middleware"
+  },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
