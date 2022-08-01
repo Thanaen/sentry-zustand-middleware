@@ -1,5 +1,5 @@
 import type { StateCreator, StoreMutatorIdentifier } from "zustand";
-import type * as Sentry from "@sentry/core";
+import type * as Sentry from "@sentry/hub";
 
 type PopArgument<T extends (...a: never[]) => unknown> = T extends (
   ...a: [...infer A, infer _]
@@ -11,7 +11,7 @@ interface SentryMiddlewareConfig<T> {
   /**
    * The Sentry SDK to use.
    */
-  sentry: typeof Sentry;
+  sentry: Pick<typeof Sentry, "configureScope">;
   /**
    * A function that takes the current state as parameter and return the state that will be stored on Sentry.
    */
