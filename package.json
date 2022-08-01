@@ -1,0 +1,19 @@
+{
+  "name": "sentry-zustand-middleware",
+  "version": "1.0.0",
+  "description": "Zustand middleware to log state and actions on Sentry",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Thanaen",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^4.7.4"
+  },
+  "peerDependencies": {
+    "zustand": ">= 4.0.0",
+    "@sentry/core": "^7.8.0"
+  }
+}
