@@ -10,7 +10,8 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "test": "jest"
+    "test": "jest",
+    "prepare": "tsc"
   },
   "author": "Thanaen",
   "license": "ISC",
