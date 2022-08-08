@@ -1,6 +1,6 @@
 {
   "name": "sentry-zustand-middleware",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Zustand middleware to log state and actions on Sentry",
   "repository": {
     "type": "git",
