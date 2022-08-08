@@ -6,9 +6,10 @@ const setContextMock = jest.fn();
 const scopeMock = {
   setContext: setContextMock,
 };
-const Sentry = {
+
+jest.mock("@sentry/browser", () => ({
   configureScope: (callback: any) => callback(scopeMock),
-};
+}));
 
 interface BearState {
   bears: number;
@@ -21,7 +22,6 @@ const store = create<BearState>()(
       bears: 0,
       increase: (by) => set((state) => ({ bears: state.bears + by })),
     }),
-    { sentry: Sentry as any }
   )
 );
 
