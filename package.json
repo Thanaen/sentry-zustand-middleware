@@ -1,6 +1,6 @@
 {
   "name": "sentry-zustand-middleware",
-  "version": "1.0.0",
+  "version": "2.0.1",
   "description": "Zustand middleware to log state and actions on Sentry",
   "repository": {
     "type": "git",
@@ -22,7 +22,7 @@
     "typescript": "^4.7.4"
   },
   "peerDependencies": {
-    "@sentry/hub": "^7.8.0",
-    "zustand": ">= 4.0.0"
+    "zustand": ">= 4.0.0",
+    "@sentry/browser": "^7.9.0"
   }
 }

@@ -10,7 +10,6 @@ or
 ```ts
 import create from "zustand";
 import sentryMiddleware from "sentry-zustand-middleware";
-import * as Sentry from "@sentry/core";
 
 interface BearState {
   bears: number;
@@ -21,7 +20,7 @@ const useStore = create<BearState>()(
     sentryMiddleware((set) => ({
       bears: 0,
       increase: (by) => set((state) => ({ bears: state.bears + by })),
-    }), { sentry: Sentry })
+    }))
 );
 
 export default useStore;
@@ -57,7 +56,7 @@ const useStore = create<BearState>()(
     sentryMiddleware((set) => ({
       bears: 0,
       increase: (by) => set((state) => ({ bears: state.bears + by })),
-    }), { sentry: Sentry, stateTransformer: stateTransformer })
+    }), { stateTransformer: stateTransformer })
 );
 
 export default useStore;
