@@ -46,7 +46,7 @@ const baseSentryMiddleware: SentryMiddlewareImpl =
 
             scope.setContext("state", {
               type: "zustand",
-              value: transformedState as Record<string, unknown>,
+              value: transformedState,
             });
           } else {
             scope.setContext("state", null);
