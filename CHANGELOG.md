@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.1](https://github.com/Thanaen/sentry-zustand-middleware/compare/v3.0.0...v3.0.1) (2022-08-10)
+
+
+### Bug Fixes
+
+* set zustand state context properly ([073bf3d](https://github.com/Thanaen/sentry-zustand-middleware/commit/073bf3da8495265a0819252859c7331340db2993))
+
 ## 3.0.0 (2022-08-10)
 
 
