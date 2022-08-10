@@ -33,7 +33,9 @@ test('sentryMiddleware', () => {
   const { increase } = store.getState();
   increase(1);
   expect(setContextMock).toHaveBeenCalledWith('state', {
-    type: 'zustand',
-    value: { bears: 1, increase: expect.any(Function) },
+    state: {
+      type: 'zustand',
+      value: { bears: 1, increase: expect.any(Function) },
+    },
   });
 });
