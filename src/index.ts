@@ -1,4 +1,4 @@
-import type { StateCreator, StoreMutatorIdentifier } from "zustand";
+import type { StateCreator, StoreMutatorIdentifier } from 'zustand';
 import { configureScope } from '@sentry/browser';
 
 type PopArgument<T extends (...a: never[]) => unknown> = T extends (
@@ -17,45 +17,44 @@ interface SentryMiddlewareConfig<T> {
 type SentryMiddleware = <
   T extends object,
   Mps extends [StoreMutatorIdentifier, unknown][] = [],
-  Mcs extends [StoreMutatorIdentifier, unknown][] = []
+  Mcs extends [StoreMutatorIdentifier, unknown][] = [],
 >(
   f: StateCreator<T, Mps, Mcs>,
-  config?: SentryMiddlewareConfig<T>
+  config?: SentryMiddlewareConfig<T>,
 ) => StateCreator<T, Mps, Mcs>;
 
 type SentryMiddlewareImpl = <T extends object>(
   f: PopArgument<StateCreator<T, [], []>>,
-  config: SentryMiddlewareConfig<T>
+  config: SentryMiddlewareConfig<T>,
 ) => PopArgument<StateCreator<T, [], []>>;
 
 /**
  * A Sentry middleware for zustand that will store the latest state in Sentry's context.
  */
-const baseSentryMiddleware: SentryMiddlewareImpl =
-  (config, sentryConfig) => (set, get, api) =>
-    config(
-      (...args) => {
-        set(...args);
-        const newState = get();
+const baseSentryMiddleware: SentryMiddlewareImpl = (config, sentryConfig) => (set, get, api) =>
+  config(
+    (...args) => {
+      set(...args);
+      const newState = get();
 
-        configureScope((scope) => {
-          if (newState) {
-            const transformedState = sentryConfig?.stateTransformer
-              ? sentryConfig.stateTransformer(newState)
-              : newState;
+      configureScope((scope) => {
+        if (newState) {
+          const transformedState = sentryConfig?.stateTransformer
+            ? sentryConfig.stateTransformer(newState)
+            : newState;
 
-            scope.setContext("state", {
-              type: "zustand",
-              value: transformedState,
-            });
-          } else {
-            scope.setContext("state", null);
-          }
-        });
-      },
-      get,
-      api
-    );
+          scope.setContext('state', {
+            type: 'zustand',
+            value: transformedState,
+          });
+        } else {
+          scope.setContext('state', null);
+        }
+      });
+    },
+    get,
+    api,
+  );
 
 /**
  * A Sentry middleware for zustand that will store the latest state in Sentry's context.
