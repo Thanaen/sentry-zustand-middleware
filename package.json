@@ -11,18 +11,31 @@
   "scripts": {
     "build": "tsc",
     "test": "jest",
-    "prepare": "tsc"
+    "prepare": "tsc",
+    "lint": "run-p lint:*",
+    "lint:ts": "tsc",
+    "lint:eslint": "eslint .",
+    "lint:prettier": "prettier --check .",
+    "lint-fix": "run-p lint-fix:*",
+    "lint-fix:eslint": "eslint --fix .",
+    "lint-fix:prettier": "prettier --write ."
   },
   "author": "Thanaen",
   "license": "ISC",
   "devDependencies": {
     "@types/jest": "^28.1.6",
+    "@typescript-eslint/eslint-plugin": "^5.33.0",
+    "@typescript-eslint/parser": "^5.33.0",
+    "eslint": "^8.21.0",
+    "eslint-plugin-jest": "^26.8.2",
     "jest": "^28.1.3",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.7.1",
     "ts-jest": "^28.0.7",
     "typescript": "^4.7.4"
   },
   "peerDependencies": {
-    "zustand": ">= 4.0.0",
-    "@sentry/browser": "^7.9.0"
+    "@sentry/browser": "^7.9.0",
+    "zustand": ">= 4.0.0"
   }
 }
