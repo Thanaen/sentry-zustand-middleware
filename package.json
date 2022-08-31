@@ -11,7 +11,7 @@
   "scripts": {
     "build": "tsc",
     "test": "jest",
-    "prepare": "tsc && husky install",
+    "prepare": "husky install",
     "lint": "run-p lint:*",
     "lint:ts": "tsc",
     "lint:eslint": "eslint .",
