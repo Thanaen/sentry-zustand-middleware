@@ -1,12 +1,17 @@
 # sentry-zustand-middleware
 
+[![NPM](https://img.shields.io/npm/l/sentry-zustand-middleware)](https://github.com/thanaen/sentry-zustand-middleware/blob/master/LICENSE)
+[![GitHub contributors](https://img.shields.io/github/contributors/thanaen/sentry-zustand-middleware)](https://github.com/Thanaen/sentry-zustand-middleware/graphs/contributors)
+[![npm](https://img.shields.io/npm/v/sentry-zustand-middleware)](https://www.npmjs.com/package/sentry-zustand-middleware)
+[![npm](https://img.shields.io/npm/dm/sentry-zustand-middleware)](https://www.npmjs.com/package/sentry-zustand-middleware)
+
 A Zustand middleware to log state on Sentry
 
 ## How to use
 
-`npm install sentry-zustand-middleware`
-or
-`yarn add sentry-zustand-middleware`
+```sh
+npm install sentry-zustand-middleware
+```
 
 ### Basic usage
 
