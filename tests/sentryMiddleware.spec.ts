@@ -8,9 +8,9 @@ const scopeMock = {
 };
 
 jest.mock('@sentry/browser', () => ({
-  // We don't really care about the callback's type
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  configureScope: (callback: any) => callback(scopeMock),
+  configureScope: (callback: (store: typeof scopeMock) => void) => {
+    callback(scopeMock);
+  },
 }));
 
 interface BearState {
@@ -21,21 +21,52 @@ interface BearState {
 const store = create<BearState>()(
   sentryMiddleware((set) => ({
     bears: 0,
-    increase: (by) => set((state) => ({ bears: state.bears + by })),
+    increase: (by) => {
+      set((state) => ({ bears: state.bears + by }));
+    },
   })),
+);
+
+const storeWithTransformer = create<BearState>()(
+  sentryMiddleware(
+    (set) => ({
+      bears: 0,
+      increase: (by) => {
+        set((state) => ({ bears: state.bears + by }));
+      },
+    }),
+    {
+      stateTransformer: (state) => ({ bears: state.bears }),
+    },
+  ),
 );
 
 beforeEach(() => {
   setContextMock.mockClear();
 });
 
-test('sentryMiddleware', () => {
-  const { increase } = store.getState();
-  increase(1);
-  expect(setContextMock).toHaveBeenCalledWith('state', {
-    state: {
-      type: 'zustand',
-      value: { bears: 1, increase: expect.any(Function) },
-    },
+describe('sentryMiddleware', () => {
+  test("adds the state to sentry's context", () => {
+    const { increase } = store.getState();
+    increase(1);
+    expect(setContextMock).toHaveBeenCalledWith('state', {
+      state: {
+        type: 'zustand',
+        // Go home Typescript, you're drunk.
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        value: { bears: 1, increase: expect.any(Function) },
+      },
+    });
+  });
+
+  test("adds the state to sentry's context with a custom transformer", () => {
+    const { increase } = storeWithTransformer.getState();
+    increase(1);
+    expect(setContextMock).toHaveBeenCalledWith('state', {
+      state: {
+        type: 'zustand',
+        value: { bears: 1 },
+      },
+    });
   });
 });
