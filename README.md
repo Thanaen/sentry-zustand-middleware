@@ -34,7 +34,6 @@ export default useStore;
 ```ts
 import create from 'zustand';
 import sentryMiddleware from 'sentry-zustand-middleware';
-import * as Sentry from '@sentry/core';
 
 interface BearState {
   bears: number;
