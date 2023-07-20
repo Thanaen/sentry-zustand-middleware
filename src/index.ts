@@ -24,9 +24,9 @@ type SentryMiddleware = <
 ) => StateCreator<T, Mps, Mcs>;
 
 type SentryMiddlewareImpl = <T extends object>(
-  f: PopArgument<StateCreator<T, [], []>>,
-  config: SentryMiddlewareConfig<T>,
-) => PopArgument<StateCreator<T, [], []>>;
+  f: PopArgument<StateCreator<T>>,
+  config?: SentryMiddlewareConfig<T>,
+) => PopArgument<StateCreator<T>>;
 
 /**
  * A Sentry middleware for zustand that will store the latest state in Sentry's context.
@@ -36,22 +36,17 @@ const baseSentryMiddleware: SentryMiddlewareImpl = (config, sentryConfig) => (se
     (...args) => {
       set(...args);
       const newState = get();
-
       configureScope((scope) => {
-        if (newState) {
-          const transformedState = sentryConfig?.stateTransformer
-            ? sentryConfig.stateTransformer(newState)
-            : newState;
+        const transformedState = sentryConfig?.stateTransformer
+          ? sentryConfig.stateTransformer(newState)
+          : newState;
 
-          scope.setContext('state', {
-            state: {
-              type: 'zustand',
-              value: transformedState,
-            },
-          });
-        } else {
-          scope.setContext('state', null);
-        }
+        scope.setContext('state', {
+          state: {
+            type: 'zustand',
+            value: transformedState,
+          },
+        });
       });
     },
     get,
