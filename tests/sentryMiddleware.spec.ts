@@ -1,5 +1,5 @@
 import create from 'zustand/vanilla';
-import sentryMiddleware from '../src';
+import sentryMiddleware from '..';
 
 // Mock Sentry's configureScope method.
 const setContextMock = jest.fn();

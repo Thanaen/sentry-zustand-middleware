@@ -101,6 +101,6 @@
     "skipLibCheck": true /* Skip type checking all .d.ts files. */,
     "allowJs": true
   },
-  "include": ["src/**/*.ts", "tests/**/*.ts", ".eslintrc.cjs", "jest.config.js"],
+  "include": ["index.ts", "tests/**/*.ts", ".eslintrc.cjs", "jest.config.js"],
   "exclude": ["node_modules"]
 }
