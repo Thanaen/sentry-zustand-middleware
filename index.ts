@@ -1,5 +1,5 @@
 import type { StateCreator, StoreMutatorIdentifier } from 'zustand';
-import { configureScope } from '@sentry/browser';
+import * as Sentry from '@sentry/browser';
 
 type PopArgument<T extends (...a: never[]) => unknown> = T extends (
   ...a: [...infer A, infer _]
@@ -36,17 +36,17 @@ const baseSentryMiddleware: SentryMiddlewareImpl = (config, sentryConfig) => (se
     (...args) => {
       set(...args);
       const newState = get();
-      configureScope((scope) => {
-        const transformedState = sentryConfig?.stateTransformer
-          ? sentryConfig.stateTransformer(newState)
-          : newState;
+      const currentScope = Sentry.getCurrentScope();
 
-        scope.setContext('state', {
-          state: {
-            type: 'zustand',
-            value: transformedState,
-          },
-        });
+      const transformedState = sentryConfig?.stateTransformer
+        ? sentryConfig.stateTransformer(newState)
+        : newState;
+
+      currentScope.setContext('state', {
+        state: {
+          type: 'zustand',
+          value: transformedState,
+        },
       });
     },
     get,

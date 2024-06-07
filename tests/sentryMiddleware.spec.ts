@@ -8,9 +8,7 @@ const scopeMock = {
 };
 
 jest.mock('@sentry/browser', () => ({
-  configureScope: (callback: (store: typeof scopeMock) => void) => {
-    callback(scopeMock);
-  },
+  getCurrentScope: () => scopeMock,
 }));
 
 interface BearState {
