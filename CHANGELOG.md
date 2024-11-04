@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.1.0](https://github.com/Thanaen/sentry-zustand-middleware/compare/v3.0.5...v4.1.0) (2024-11-04)
+
+
+### Features
+
+* remove PopArgument typescript utility type, bump zustand to >= 4.1.3 ([d2bbb5e](https://github.com/Thanaen/sentry-zustand-middleware/commit/d2bbb5e81bccc0734716c0868211400fd70f99b6))
+
 ### [4.0.1](https://github.com/Thanaen/sentry-zustand-middleware/compare/v4.0.0...v4.0.1) (2024-11-04)
 
 ### Features

@@ -1,6 +1,6 @@
 {
   "name": "sentry-zustand-middleware",
-  "version": "4.0.1",
+  "version": "4.1.0",
   "description": "Zustand middleware to log state and actions on Sentry",
   "keywords": [
     "middleware",
