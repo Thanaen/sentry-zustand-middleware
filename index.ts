@@ -1,12 +1,6 @@
 import type { StateCreator, StoreMutatorIdentifier } from 'zustand';
 import * as Sentry from '@sentry/browser';
 
-type PopArgument<T extends (...a: never[]) => unknown> = T extends (
-  ...a: [...infer A, infer _]
-) => infer R
-  ? (...a: A) => R
-  : never;
-
 interface SentryMiddlewareConfig<T> {
   /**
    * A function that takes the current state as parameter and return the state that will be stored on Sentry.
@@ -24,9 +18,9 @@ type SentryMiddleware = <
 ) => StateCreator<T, Mps, Mcs>;
 
 type SentryMiddlewareImpl = <T extends object>(
-  f: PopArgument<StateCreator<T>>,
+  f: StateCreator<T>,
   config?: SentryMiddlewareConfig<T>,
-) => PopArgument<StateCreator<T>>;
+) => StateCreator<T>;
 
 /**
  * A Sentry middleware for zustand that will store the latest state in Sentry's context.
