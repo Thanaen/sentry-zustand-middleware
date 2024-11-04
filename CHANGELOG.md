@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.1](https://github.com/Thanaen/sentry-zustand-middleware/compare/v4.0.0...v4.0.1) (2024-11-04)
+
+### Features
+
+* allow @sentry/browser@>=7.87 peer dependency ([600ca07](https://github.com/Thanaen/sentry-zustand-middleware/commit/600ca07731c329b438e712323225eaa7136da4f0))
+
+### [4.0.0](https://github.com/Thanaen/sentry-zustand-middleware/compare/v3.0.5...v4.0.0) (2024-06-07)
+
+### Features
+
+* update sentry peer dependency to version 8 ([240ecb4](https://github.com/Thanaen/sentry-zustand-middleware/commit/240ecb408c2f0acce001158e93c3abf88eb0f67b))
+
 ### [3.0.5](https://github.com/Thanaen/sentry-zustand-middleware/compare/v3.0.4...v3.0.5) (2023-07-21)
 
 ### [3.0.4](https://github.com/Thanaen/sentry-zustand-middleware/compare/v3.0.3...v3.0.4) (2023-07-20)
