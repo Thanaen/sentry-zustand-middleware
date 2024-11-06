@@ -25,27 +25,38 @@ type SentryMiddlewareImpl = <T extends object>(
 /**
  * A Sentry middleware for zustand that will store the latest state in Sentry's context.
  */
-const baseSentryMiddleware: SentryMiddlewareImpl = (config, sentryConfig) => (set, get, api) =>
-  config(
-    (...args) => {
-      set(...args);
-      const newState = get();
-      const currentScope = Sentry.getCurrentScope();
+const baseSentryMiddleware: SentryMiddlewareImpl = (config, sentryConfig) => (set, get, api) => {
+  // Add set proxy
+  const sentrySet: typeof set = (...a) => {
+    set(...(a as Parameters<typeof set>));
+    setSentryContext(get());
+  };
 
-      const transformedState = sentryConfig?.stateTransformer
-        ? sentryConfig.stateTransformer(newState)
-        : newState;
+  // Add setState proxy
+  const setState = api.setState;
 
-      currentScope.setContext('state', {
-        state: {
-          type: 'zustand',
-          value: transformedState,
-        },
-      });
-    },
-    get,
-    api,
-  );
+  api.setState = (...a) => {
+    setState(...(a as Parameters<typeof setState>));
+    setSentryContext(api.getState());
+  };
+
+  return config(sentrySet, get, api);
+
+  function setSentryContext(state: ReturnType<typeof config>): void {
+    const currentScope = Sentry.getCurrentScope();
+
+    const transformedState = sentryConfig?.stateTransformer
+      ? sentryConfig.stateTransformer(state)
+      : state;
+
+    currentScope.setContext('state', {
+      state: {
+        type: 'zustand',
+        value: transformedState,
+      },
+    });
+  }
+};
 
 /**
  * A Sentry middleware for zustand that will store the latest state in Sentry's context.
