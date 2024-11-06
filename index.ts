@@ -15,19 +15,19 @@ type SentryMiddleware = <
   Mps extends [StoreMutatorIdentifier, unknown][] = [],
   Mcs extends [StoreMutatorIdentifier, unknown][] = [],
 >(
-  f: StateCreator<T, Mps, Mcs>,
+  fn: StateCreator<T, Mps, Mcs>,
   config?: SentryMiddlewareConfig<T>,
 ) => StateCreator<T, Mps, Mcs>;
 
 type SentryMiddlewareImpl = <T extends Context>(
-  f: StateCreator<T>,
+  fn: StateCreator<T>,
   config?: SentryMiddlewareConfig<T>,
 ) => StateCreator<T>;
 
 /**
  * A Sentry middleware for zustand that will store the latest state in Sentry's context.
  */
-const baseSentryMiddleware: SentryMiddlewareImpl = (config, sentryConfig) => (set, get, api) => {
+const baseSentryMiddleware: SentryMiddlewareImpl = (fn, sentryConfig) => (set, get, store) => {
   // Add set proxy
   const sentrySet: typeof set = (...a) => {
     set(...(a as Parameters<typeof set>));
@@ -35,16 +35,16 @@ const baseSentryMiddleware: SentryMiddlewareImpl = (config, sentryConfig) => (se
   };
 
   // Add setState proxy
-  const setState = api.setState;
+  const setState = store.setState;
 
-  api.setState = (...a) => {
+  store.setState = (...a) => {
     setState(...(a as Parameters<typeof setState>));
-    setSentryContext(api.getState());
+    setSentryContext(store.getState());
   };
 
-  return config(sentrySet, get, api);
+  return fn(sentrySet, get, store);
 
-  function setSentryContext(state: ReturnType<typeof config>): void {
+  function setSentryContext(state: ReturnType<typeof fn>): void {
     const currentScope = Sentry.getCurrentScope();
 
     const transformedState = sentryConfig?.stateTransformer
