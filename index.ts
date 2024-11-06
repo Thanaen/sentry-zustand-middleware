@@ -1,15 +1,17 @@
 import type { StateCreator, StoreMutatorIdentifier } from 'zustand';
 import * as Sentry from '@sentry/browser';
 
+type Context = Record<string, unknown>;
+
 interface SentryMiddlewareConfig<T> {
   /**
    * A function that takes the current state as parameter and return the state that will be stored on Sentry.
    */
-  stateTransformer?: (state: T) => object;
+  stateTransformer?: (state: T) => Context;
 }
 
 type SentryMiddleware = <
-  T extends object,
+  T,
   Mps extends [StoreMutatorIdentifier, unknown][] = [],
   Mcs extends [StoreMutatorIdentifier, unknown][] = [],
 >(
@@ -17,7 +19,7 @@ type SentryMiddleware = <
   config?: SentryMiddlewareConfig<T>,
 ) => StateCreator<T, Mps, Mcs>;
 
-type SentryMiddlewareImpl = <T extends object>(
+type SentryMiddlewareImpl = <T extends Context>(
   f: StateCreator<T>,
   config?: SentryMiddlewareConfig<T>,
 ) => StateCreator<T>;
