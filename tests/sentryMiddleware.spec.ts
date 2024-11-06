@@ -67,4 +67,17 @@ describe('sentryMiddleware', () => {
       },
     });
   });
+
+  // https://github.com/pmndrs/zustand?tab=readme-ov-file#using-zustand-without-react
+  test("adds the state to sentry's context using store.setState", () => {
+    store.setState({ bears: 1 });
+
+    expect(setContextMock).toHaveBeenCalledWith('state', {
+      state: {
+        type: 'zustand',
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        value: { bears: 1, increase: expect.any(Function) },
+      },
+    });
+  });
 });
