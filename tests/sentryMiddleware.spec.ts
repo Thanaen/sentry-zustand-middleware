@@ -1,13 +1,14 @@
 import create from 'zustand/vanilla';
 import sentryMiddleware from '../index';
+import { describe, it, vi, beforeEach, expect } from 'vitest';
 
 // Mock Sentry's configureScope method.
-const setContextMock = jest.fn();
+const setContextMock = vi.fn();
 const scopeMock = {
   setContext: setContextMock,
 };
 
-jest.mock('@sentry/browser', () => ({
+vi.mock('@sentry/browser', () => ({
   getCurrentScope: () => scopeMock,
 }));
 
@@ -44,7 +45,7 @@ beforeEach(() => {
 });
 
 describe('sentryMiddleware', () => {
-  test("adds the state to sentry's context", () => {
+  it("adds the state to sentry's context", () => {
     const { increase } = store.getState();
     increase(1);
     expect(setContextMock).toHaveBeenCalledWith('state', {
@@ -57,7 +58,7 @@ describe('sentryMiddleware', () => {
     });
   });
 
-  test("adds the state to sentry's context with a custom transformer", () => {
+  it("adds the state to sentry's context with a custom transformer", () => {
     const { increase } = storeWithTransformer.getState();
     increase(1);
     expect(setContextMock).toHaveBeenCalledWith('state', {
@@ -69,7 +70,7 @@ describe('sentryMiddleware', () => {
   });
 
   // https://github.com/pmndrs/zustand?tab=readme-ov-file#using-zustand-without-react
-  test("adds the state to sentry's context using store.setState", () => {
+  it("adds the state to sentry's context using store.setState", () => {
     store.setState({ bears: 1 });
 
     expect(setContextMock).toHaveBeenCalledWith('state', {

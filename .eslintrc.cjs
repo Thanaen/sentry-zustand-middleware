@@ -5,7 +5,7 @@ module.exports = {
     'plugin:@typescript-eslint/stylistic-type-checked',
   ],
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'jest'],
+  plugins: ['@typescript-eslint'],
   root: true,
   env: {
     node: true,
