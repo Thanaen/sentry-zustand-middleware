@@ -2,8 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-## [4.1.0](https://github.com/Thanaen/sentry-zustand-middleware/compare/v3.0.5...v4.1.0) (2024-11-04)
+## [4.2.0](https://github.com/Thanaen/sentry-zustand-middleware/compare/v4.1.0...v4.2.0) (2024-11-04)
 
+### Features
+
+* allow middleware to be used with store.setState calls ([78ea42c](https://github.com/Thanaen/sentry-zustand-middleware/commit/78ea42cb5eb26f59765bc45d12681ff1da15ed51))
+* simplify build steps ([c0d25f7](https://github.com/Thanaen/sentry-zustand-middleware/commit/c0d25f7628655b59d7ac9eeb91f4310591e0160c))
+
+## [4.1.0](https://github.com/Thanaen/sentry-zustand-middleware/compare/v4.0.1...v4.1.0) (2024-11-04)
 
 ### Features
 
