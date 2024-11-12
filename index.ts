@@ -6,8 +6,10 @@ type Context = Record<string, unknown>;
 interface SentryMiddlewareConfig<T> {
   /**
    * A function that takes the current state as parameter and return the state that will be stored on Sentry.
+   * Return null to not attach the state
+   * @link https://docs.sentry.io/platforms/javascript/guides/react/features/redux/#redux-enhancer-options
    */
-  stateTransformer?: (state: T) => Context;
+  stateTransformer?: (state: T) => Context | null;
 }
 
 type SentryMiddleware = <
@@ -51,12 +53,17 @@ const baseSentryMiddleware: SentryMiddlewareImpl = (fn, sentryConfig) => (set, g
       ? sentryConfig.stateTransformer(state)
       : state;
 
-    currentScope.setContext('state', {
-      state: {
-        type: 'zustand',
-        value: transformedState,
-      },
-    });
+    if (transformedState !== null) {
+      currentScope.setContext('state', {
+        state: {
+          type: 'zustand',
+          value: transformedState,
+        },
+      });
+    } else {
+      // Same as https://github.com/getsentry/sentry-javascript/blob/8.37.1/packages/react/src/redux.ts#L149
+      currentScope.setContext('state', null);
+    }
   }
 };
 

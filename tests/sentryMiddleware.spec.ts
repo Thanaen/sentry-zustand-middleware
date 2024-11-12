@@ -40,6 +40,20 @@ const storeWithTransformer = create<BearState>()(
   ),
 );
 
+const storeWithTransformerDoNotSend = create<BearState>()(
+  sentryMiddleware(
+    (set) => ({
+      bears: 0,
+      increase: (by) => {
+        set((state) => ({ bears: state.bears + by }));
+      },
+    }),
+    {
+      stateTransformer: () => null,
+    },
+  ),
+);
+
 beforeEach(() => {
   setContextMock.mockClear();
 });
@@ -67,6 +81,12 @@ describe('sentryMiddleware', () => {
         value: { bears: 1 },
       },
     });
+  });
+
+  it("adds the state to sentry's context with a custom tranformer that returns null", () => {
+    const { increase } = storeWithTransformerDoNotSend.getState();
+    increase(1);
+    expect(setContextMock).toHaveBeenCalledWith('state', null);
   });
 
   // https://github.com/pmndrs/zustand?tab=readme-ov-file#using-zustand-without-react
