@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.3.0](https://github.com/Thanaen/sentry-zustand-middleware/compare/v4.2.0...v4.3.0) (2024-11-26)
+
+### Features
+
+* allow a null stateTransformer to prevent state from being attached to context ([b351b96](https://github.com/Thanaen/sentry-zustand-middleware/commit/b351b96dabe35c6d7a98dc083ff48fbf56bf62c5))
+
+
 ## [4.2.0](https://github.com/Thanaen/sentry-zustand-middleware/compare/v4.1.0...v4.2.0) (2024-11-04)
 
 ### Features
