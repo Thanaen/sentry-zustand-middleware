@@ -1,5 +1,0 @@
-dist
-CHANGELOG.md
-pnpm-lock.yaml
-.eslintrc.cjs
-jest.config.js
