@@ -1,4 +1,4 @@
-import create from 'zustand/vanilla';
+import { createStore } from 'zustand/vanilla';
 import sentryMiddleware from '../index';
 import { describe, it, vi, beforeEach, expect } from 'vitest';
 
@@ -17,7 +17,7 @@ interface BearState {
   increase: (by: number) => void;
 }
 
-const store = create<BearState>()(
+const store = createStore<BearState>()(
   sentryMiddleware((set) => ({
     bears: 0,
     increase: (by) => {
@@ -26,7 +26,7 @@ const store = create<BearState>()(
   })),
 );
 
-const storeWithTransformer = create<BearState>()(
+const storeWithTransformer = createStore<BearState>()(
   sentryMiddleware(
     (set) => ({
       bears: 0,
@@ -40,7 +40,7 @@ const storeWithTransformer = create<BearState>()(
   ),
 );
 
-const storeWithTransformerDoNotSend = create<BearState>()(
+const storeWithTransformerDoNotSend = createStore<BearState>()(
   sentryMiddleware(
     (set) => ({
       bears: 0,
